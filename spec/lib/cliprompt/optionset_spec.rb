@@ -15,7 +15,7 @@ describe Cliprompt::Optionset do
       When(:display) { set.display }
       Then { expect(choices).to eq options }
       Then { expect(default).to be_false }
-      Then { expect(display).to eq "( xxx / yyy / zzz )" }
+      Then { expect(display).to eq "(xxx / yyy / zzz)" }
     end
 
     context "when there is a default specified (#{['xxx', '=yyy', 'zzz'].to_s})," do
@@ -26,7 +26,7 @@ describe Cliprompt::Optionset do
       When(:display) { set.display }
       Then { expect(choices).to eq options }
       Then { expect(default).to eq 'yyy' }
-      Then { expect(display).to eq "( xxx / yyy / zzz )[yyy]" }
+      Then { expect(display).to eq "(xxx / yyy / zzz)[yyy]" }
     end
   end
 
@@ -41,7 +41,7 @@ describe Cliprompt::Optionset do
         When(:display) { set.display }
         Then { expect(choices).to eq ['xxx', 'yyy', 'zzz'] }
         Then { expect(default).to eq 'xxx' }
-        Then { expect(display).to eq "( xxx / yyy / zzz )[xxx]" }
+        Then { expect(display).to eq "(xxx / yyy / zzz)[xxx]" }
       end
       context "when using string keys (#{{ 'default' => 'xxx', 'choices' => ['xxx', 'yyy', 'zzz'] }.to_s})," do
         Given(:options) { { 'default' => 'xxx', 'choices' => ['xxx', 'yyy', 'zzz'] } }
@@ -51,7 +51,7 @@ describe Cliprompt::Optionset do
         When(:display) { set.display }
         Then { expect(choices).to eq ['xxx', 'yyy', 'zzz'] }
         Then { expect(default).to eq 'xxx' }
-        Then { expect(display).to eq "( xxx / yyy / zzz )[xxx]" }
+        Then { expect(display).to eq "(xxx / yyy / zzz)[xxx]" }
       end
     end
 

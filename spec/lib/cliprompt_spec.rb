@@ -11,8 +11,9 @@ describe Cliprompt do
       let(:input) { StringIO.new }
       let(:output) { StringIO.new }
       before { subject.setio(input, output) }
+      before { input.stub(:gets).and_return 'bleh' }
       it {
-        expect(output).to receive(:puts).with('what')
+        expect(output).to receive(:print).with('what')
         expect{ subject.ask('what', choices: ['na','woot','xx'], default: 'woot', env: 'WOOT')}.not_to raise_error
       }
     end

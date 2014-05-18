@@ -8,11 +8,18 @@ module Cliprompt
     attr_reader :choices, :default, :boolean, :envdefault
 
     def initialize(options)
-      meth = "parse_#{options.class.name.downcase}".to_sym
-      if respond_to? meth
-        send(meth, options)
+      if options == []
+        @choices = []
+        @default = nil
+        @boolean = false
+        @envdefault = nil
       else
-        fail OptionException, "Undefined parser ::#{meth}"
+        meth = "parse_#{options.class.name.downcase}".to_sym
+        if respond_to? meth
+          send(meth, options)
+        else
+          fail OptionException, "Undefined parser ::#{meth}"
+        end
       end
     end
 
@@ -30,7 +37,7 @@ module Cliprompt
 
     def parse_array(args)
       @choices = args.map do |a|
-        if a[0] == '='
+        if a[0] && a[0] == '='
           @default = a[1..-1]
         else
           a
@@ -57,10 +64,12 @@ module Cliprompt
 
     def display
       back = ''
-      if boolean?
+      if @boolean
         back = @default ? "[Y/n]" : "[y/N]"
       else
-        back = "( #{@choices.join(' / ')} )" if @choices
+        if @choices.count > 0
+          back += "(#{@choices.join(' / ')})"
+        end
         back += "[#{@default}]" if @default
       end
       return back
