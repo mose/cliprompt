@@ -13,7 +13,7 @@ describe Cliprompt do
       before { subject.setio(input, output) }
       it {
         expect(output).to receive(:puts).with('what')
-        expect(subject.ask('what', choices: ['na','woot','xx'], default: 'woot', env: 'WOOT')).not_to raise_error
+        expect{ subject.ask('what', choices: ['na','woot','xx'], default: 'woot', env: 'WOOT')}.not_to raise_error
       }
     end
 
