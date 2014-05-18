@@ -7,13 +7,12 @@ module Cliprompt
 
     attr_reader :choices, :default, :boolean, :envdefault
 
-    def initialize(options)
-      if options == []
-        @choices = []
-        @default = nil
-        @boolean = false
-        @envdefault = nil
-      else
+    def initialize(options = nil)
+      @choices = []
+      @default = nil
+      @boolean = false
+      @envdefault = nil
+      unless options.nil?
         meth = "parse_#{options.class.name.downcase}".to_sym
         if respond_to? meth
           send(meth, options)

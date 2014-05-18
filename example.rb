@@ -4,10 +4,34 @@ class Myclass
   include Cliprompt
 
   def initialize
-    @url = ask "What is the url of Myclass?"
-    @ssl = ask 'Is it using SSL?', 'y/N'
-    @age = ask "What is the age of the captain?", ['22', '33', '=44', '55']
+  end
+
+  def askit
+    puts '-------------------'
+    puts 'Free form'
+    show "This simply ask for a simple form mandatory thing?"
+    show "This simply ask for a simple form mandatory thing?", 'with a default'
+    show "This simply ask for a simple form mandatory thing?", 'with a default again'
+    puts '-------------------'
+    puts 'yes/no'
+    show 'a boolean?', 'y/N'
+    show 'a boolean?', 'yN'
+    show 'a boolean?', 'yesno'
+    show 'a boolean?', 'yesNo'
+    puts '-------------------'
+    puts 'a list of choices'
+    show 'a list without default?', ['22', '33', '44', '55']
+    show 'a list without default?', ['22', '33', '44', '55']
+    show 'a list with default?', ['22', '33', '=44', '55']
+    show 'a list with default?', ['22', '33', '=44', '55']
+  end
+
+  def show(*args)
+    it = ask *args
+    puts "-- returned #{it.inspect}"
+    puts
   end
 end
 
-Myclass.new
+m = Myclass.new
+m.askit

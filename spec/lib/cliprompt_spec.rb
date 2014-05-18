@@ -6,22 +6,26 @@ require 'cliprompt'
 describe Cliprompt do
 
   describe '.ask' do
+    Given(:input) { StringIO.new }
+    Given(:output) { StringIO.new }
+    Given { subject.setio(input, output) }
 
-    context 'when I debug,' do
-      let(:input) { StringIO.new }
-      let(:output) { StringIO.new }
-      before { subject.setio(input, output) }
-      before { input.stub(:gets).and_return 'bleh' }
-      it {
-        expect(output).to receive(:print).with('what')
-        expect{ subject.ask('what', choices: ['na','woot','xx'], default: 'woot', env: 'WOOT')}.not_to raise_error
-      }
-    end
-
-    context 'when there are preset choices,' do
-      it 'is displayed ay the end of the question' do
-      end
-    end
+    # context 'when it is free form,' do
+    #   When(:question) { 'wazza?' }
+    #   context 'without default,' do
+    #     When(:args) { }
+    #     When { subject.input.stub(:gets).and_return("\n") }
+    #     When { subject.ask(question, args) }
+    #     Then { expect(output).to receive(:print).with("#{question}  ") }
+    #     context 'when enter key is used,' do
+    #       When(:answer) { subject.ask(question) }
+    #       When { input.gets("\n") }
+    #       Then { expect(output).to receive(:puts).with(Cliprompt::MSG_MANDATORY_TEXT)}
+    #     end
+    #   end
+    #   it 'is displayed ay the end of the question' do
+    #   end
+    # end
     context 'when there is no preset choices,' do
       it 'only displays the question' do
       end
