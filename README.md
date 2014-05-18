@@ -2,7 +2,7 @@ Cliprompt
 ==============
 
 [![Build Status](https://travis-ci.org/mose/cliprompt.png?branch=master)](https://travis-ci.org/mose/cliprompt)
-[![Coverage Status](https://coveralls.io/repos/mose/cliprompt/badge.png)](https://coveralls.io/r/mose/cliprompt)
+[![Coverage Status](https://coveralls.io/repos/mose/cliprompt/badge.png?branch=master)](https://coveralls.io/r/mose/cliprompt?branch=master)
 [![Dependency Status](https://gemnasium.com/mose/cliprompt.svg)](https://gemnasium.com/mose/cliprompt)
 [![Code Climate](https://codeclimate.com/github/mose/cliprompt.png)](https://codeclimate.com/github/mose/cliprompt)
 
