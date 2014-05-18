@@ -1,6 +1,11 @@
 Cliprompt
 ==============
 
+[![Build Status](https://travis-ci.org/mose/cliprompt.png?branch=master)](https://travis-ci.org/mose/cliprompt)
+[![Coverage Status](https://coveralls.io/repos/mose/cliprompt/badge.png)](https://coveralls.io/r/mose/cliprompt)
+[![Dependency Status](https://gemnasium.com/mose/cliprompt.svg)](https://gemnasium.com/mose/cliprompt)
+[![Code Climate](https://codeclimate.com/github/mose/cliprompt.png)](https://codeclimate.com/github/mose/cliprompt)
+
 This library provides a simple DSL for managing user interaction in a CLI application.
 
 Features
