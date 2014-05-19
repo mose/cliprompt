@@ -37,6 +37,8 @@ class Myclass
 end
 ```
 
+Check [example.rb](https://github.com/mose/cliprompt/blob/master/example.rb) for various possible combinations, or run `rspec -f d` after all that's also what tests are for.
+
 Contributing
 -----------------
 
