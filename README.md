@@ -6,7 +6,7 @@ Cliprompt
 [![Dependency Status](https://gemnasium.com/mose/cliprompt.svg)](https://gemnasium.com/mose/cliprompt)
 [![Code Climate](https://codeclimate.com/github/mose/cliprompt.png)](https://codeclimate.com/github/mose/cliprompt)
 
-This library provides a simple DSL for managing user interaction in a CLI application.
+This library provides a simple DSL for managing user interaction in a CLI application. Still under development, not stable yet.
 
 Features
 ----------
