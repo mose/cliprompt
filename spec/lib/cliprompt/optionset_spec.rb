@@ -57,7 +57,7 @@ describe Cliprompt::Optionset do
 
     context "when there is only boolean," do
       context "when  no default is given, default booean is Y," do
-        Given(:options) { { yesno: true } }
+        Given(:options) { { boolean: true } }
         Given(:set) { Cliprompt::Optionset.new(options) }
         When(:default) { set.default }
         When(:display) { set.display }
@@ -67,7 +67,7 @@ describe Cliprompt::Optionset do
         Then { expect(display).to eq "[Y/n]" }
       end
       context "when default is given as true, default booean is Y," do
-        Given(:options) { { yesno: true, default: true } }
+        Given(:options) { { boolean: true, default: true } }
         Given(:set) { Cliprompt::Optionset.new(options) }
         When(:default) { set.default }
         When(:display) { set.display }
@@ -77,7 +77,7 @@ describe Cliprompt::Optionset do
         Then { expect(display).to eq "[Y/n]" }
       end
        context "when default is given as false, default boolean is N," do
-        Given(:options) { { yesno: true, default: false } }
+        Given(:options) { { boolean: true, default: false } }
         Given(:set) { Cliprompt::Optionset.new(options) }
         When(:default) { set.default }
         When(:display) { set.display }

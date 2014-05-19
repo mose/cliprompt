@@ -23,13 +23,14 @@ module Cliprompt
     end
 
     def parse_hash(args)
-      @choices = args[:choices] || args['choices']
+      @choices = args[:choices] || args['choices'] || []
+      parse_array @choices
       if args[:default] == false || args['default'] == false
-        @default = false
+        @default ||= false
       else
-        @default = args[:default] || args['default']
+        @default ||= args[:default] || args['default']
       end
-      @boolean = args[:yesno] || args['yesno']
+      @boolean = args[:boolean] || args['boolean']
       @default = true if (@boolean && @default.nil?)
       @envdefault = args[:env] || args['env']
     end
