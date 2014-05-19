@@ -1,4 +1,4 @@
-require "dye"
+require "paint"
 
 require "cliprompt/version"
 require "cliprompt/optionset"
@@ -7,15 +7,9 @@ module Cliprompt
 
   module_function
 
-  CUSTOM_STYLES = {
-    error: [ :bold, :red ],
-    ok:    [ :bold, :green ]
-  }
-  define_dye_method CUSTOM_STYLES
-
-  MSG_MANDATORY_TEXT = Dye.dye("Sorry you need to fill that information.", [ :bold, :red ])
-  MSG_YES_OR_NO = Dye.dye("You need to answer by yes, no, y or n.", [ :bold, :red ])
-  MSG_CHOSE_IN_LIST = Dye.dye("You need to chose between the available options.", [ :bold, :red ])
+  MSG_MANDATORY_TEXT = Paint["Sorry you need to fill that information.", :bold, :red ]
+  MSG_YES_OR_NO = Paint["You need to answer by yes, no, y or n.", :bold, :red ]
+  MSG_CHOSE_IN_LIST = Paint["You need to chose between the available options.", :bold, :red ]
 
   def ask(question, *options)
     if options[0].class == Optionset
