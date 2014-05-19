@@ -7,9 +7,9 @@ module Cliprompt
 
   module_function
 
-  MSG_MANDATORY_TEXT = Paint["Sorry you need to fill that information.", :bold, :red ]
-  MSG_YES_OR_NO = Paint["You need to answer by yes, no, y or n.", :bold, :red ]
-  MSG_CHOSE_IN_LIST = Paint["You need to chose between the available options.", :bold, :red ]
+  MSG_MANDATORY_TEXT = "Sorry you need to fill that information."
+  MSG_YES_OR_NO = "You need to answer by yes, no, y or n."
+  MSG_CHOSE_IN_LIST = "You need to chose between the available options."
 
   def ask(question, *options)
     if options[0].class == Optionset
@@ -20,32 +20,15 @@ module Cliprompt
     output.print "#{question} #{opts.display} "
     answer = input.gets.chomp
     output.flush
-    check(answer, question, opts)
+    opts.validate(question, answer)
   end
 
-  def check(answer, question, opts)
-    if answer == ''
-      if !opts.default.nil?
-        answer = opts.default
-      else
-        output.puts MSG_MANDATORY_TEXT
-        ask(question, opts)
-      end
-    else
-      if opts.boolean
-        if /^(y(es)?|n(o)?)$/.match(answer.downcase)
-          answer = !/^y(es)?$/.match(answer.downcase).nil?
-        else
-          output.puts MSG_YES_OR_NO
-          ask(question, opts)
-        end
-      elsif opts.choices.count > 0 && !opts.choices.include?(answer)
-        output.puts MSG_CHOSE_IN_LIST
-        ask(question, opts)
-      else
-        answer
-      end
-    end
+  def say(message)
+    output.puts message
+  end
+
+  def shout(message)
+    output.puts Paint[message, :bold, :red ]
   end
 
   def setio(input, output)

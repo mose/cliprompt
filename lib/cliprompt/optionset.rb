@@ -12,14 +12,16 @@ module Cliprompt
       @default = nil
       @boolean = false
       @envdefault = nil
-      unless options.nil?
-        meth = "parse_#{options.class.name.downcase}".to_sym
-        if respond_to? meth
-          send(meth, options)
-        else
-          fail OptionException, "Undefined parser ::#{meth}"
-        end
+      @type = options.class.name.downcase
+      meth = "parse_#{@type}".to_sym
+      if respond_to? meth
+        send(meth, options)
+      else
+        fail OptionException, "Undefined parser ::#{meth}"
       end
+    end
+
+    def parse_nilclass(args)
     end
 
     def parse_hash(args)
@@ -73,6 +75,39 @@ module Cliprompt
         back += "[#{@default}]" if @default
       end
       return back
+    end
+
+    def validate(question, answer)
+      if answer == ''
+        check_default question
+      elsif @boolean
+        check_boolean question, answer
+      elsif @choices.count > 0
+        check_choices question, answer
+      else
+        answer
+      end
+    end
+
+    def check_default(question)
+      return ask_again(question, Cliprompt::MSG_MANDATORY_TEXT) if @default.nil?
+      @default
+    end
+
+    def check_boolean(question, answer)
+      answer.downcase!
+      return ask_again(question, Cliprompt::MSG_YES_OR_NO) unless /^(y(es)?|n(o)?)$/.match(answer)
+      !/^y(es)?$/.match(answer).nil?
+    end
+
+    def check_choices(question, answer)
+      return ask_again(question, Cliprompt::MSG_CHOSE_IN_LIST) unless @choices.include?(answer)
+      answer
+    end
+
+    def ask_again(question, msg)
+      Cliprompt.shout msg
+      Cliprompt.ask question, self
     end
 
   end
