@@ -11,11 +11,11 @@ if ENV['COV']
   end
   SimpleCov.start :hpcli
 else
-  # require 'coveralls'
-  # Coveralls.wear!
+  require 'coveralls'
+  Coveralls.wear!
 
-  require "codeclimate-test-reporter"
-  CodeClimate::TestReporter.start
+  # require "codeclimate-test-reporter"
+  # CodeClimate::TestReporter.start
 end
 
 RSpec.configure do |config|
