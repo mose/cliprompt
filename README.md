@@ -12,9 +12,8 @@ This library provides a simple DSL for managing user interaction in a CLI applic
 Features
 ----------
 
-- manages questions, choices, default values, yes/no values
-- makes possible to have env vars set for defaults
-- makes possible to colorize output
+- manages questions, choices, default values, yes/no values (done)
+- makes possible to have env vars set for defaults (todo)
 
 Usage
 ----------

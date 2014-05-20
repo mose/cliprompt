@@ -263,7 +263,7 @@ describe Cliprompt::Optionset do
     When { Cliprompt.stub(:ask).with(question, set) }
     Then { expect(Cliprompt).to receive(:shout).with(msg) }
     And  { expect(Cliprompt).to receive(:ask).with(question, set) }
-    And { expect{ set.ask_again(question, msg)}.not_to raise_error }
+    And  { expect{ set.ask_again(question, msg)}.not_to raise_error }
   end
 
 
