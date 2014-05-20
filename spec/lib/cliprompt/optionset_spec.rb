@@ -190,4 +190,52 @@ describe Cliprompt::Optionset do
   end
 
 
+  describe '.check_boolean' do
+    Given(:question) { 'so what?' }
+    Given(:msg) { Cliprompt::MSG_YES_OR_NO }
+    Given(:set) { Cliprompt::Optionset.new(boolean: true) }
+    context 'when a non yes-no answer is given,' do
+      When(:input) { 'xxx' }
+      When { set.stub(:ask_again).with(question, msg) }
+      Then { expect(set).to receive(:ask_again).with(question, msg) }
+      And  { expect{ set.check_boolean(question, input) }.not_to raise_error }
+     end
+    context 'when a no answer is given,' do
+      When(:input) { 'no' }
+      Then { expect(set.check_boolean(question, input)).to be_false }
+    end
+    context 'when a N answer is given,' do
+      When(:input) { 'N' }
+      Then { expect(set.check_boolean(question, input)).to be_false }
+    end
+    context 'when a yes answer is given,' do
+      When(:input) { 'yes' }
+      Then { expect(set.check_boolean(question, input)).to be_true }
+    end
+    context 'when a Y answer is given,' do
+      When(:input) { 'Y' }
+      Then { expect(set.check_boolean(question, input)).to be_true }
+    end
+  end
+
+  describe '.check_choices' do
+    Given(:question) { 'so what?' }
+    Given(:msg) { Cliprompt::MSG_CHOSE_IN_LIST }
+    Given(:choices) { %w(a b c) }
+    Given(:set) { Cliprompt::Optionset.new(choices: choices) }
+    context 'when answer is not in choices list,' do
+      When(:input) { 'x' }
+      When { set.stub(:ask_again).with(question, msg) }
+      Then { expect(set).to receive(:ask_again).with(question, msg) }
+      And  { expect{ set.check_choices(question, input) }.not_to raise_error }
+     end
+    context 'when answer is in choices list,' do
+      When(:input) { 'a' }
+      When(:response) { set.check_choices(question, input) }
+      Then { expect(response).to eq input }
+     end
+  end
+
+
+
 end

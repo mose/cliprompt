@@ -60,10 +60,6 @@ module Cliprompt
       end
     end
 
-    def boolean?
-      @boolean
-    end
-
     def display
       back = ''
       if @boolean
