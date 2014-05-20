@@ -1,7 +1,7 @@
 Cliprompt Changelog
 =====================
 
-v0.0.2 - wip
+v0.0.2 - 2014-05-20
 -----------
 
 - fix case when numbers are used in choices
