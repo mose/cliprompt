@@ -6,6 +6,13 @@ require 'cliprompt/optionset'
 
 describe Cliprompt::Optionset do
 
+  describe '.new' do
+    context "when an unknown objkect is passed as option," do
+      When(:options) { Object.new }
+      Then { expect{ Cliprompt::Optionset.new(options) }.to raise_error(Cliprompt::OptionException) }
+    end
+  end
+
   describe '.parse_array' do
     Given(:options) { ['xxx', 'yyy', 'zzz'] }
 
@@ -92,6 +99,13 @@ describe Cliprompt::Optionset do
 
   describe '.parse_string' do
 
+    context 'when a random string is passed, it is the default,' do
+      Given(:options) { 'something' }
+      Given(:set) { Cliprompt::Optionset.new(options) }
+      When(:default) { set.default }
+      Then { expect(default).to eq options }
+    end
+
     context 'when a "yesno" kind of string is passed,' do
       context 'when using yesno,' do
         Given(:options) { 'yesno' }
@@ -170,6 +184,11 @@ describe Cliprompt::Optionset do
       Then { expect(set).to receive(:check_choices).with(question, input) }
       And  { expect{ set.validate(question, input) }.not_to raise_error }
     end
+    context 'when it is not a mandatory question, a boolean nor a choice list' do
+      Given(:input) { 'something' }
+      Given(:set) { Cliprompt::Optionset.new() }
+      Then { expect(set.validate(question, input)).to eq input }
+    end
   end
 
   describe '.check_default' do
@@ -236,6 +255,16 @@ describe Cliprompt::Optionset do
      end
   end
 
+  describe '.ask_again' do
+    Given(:question) { 'so what?' }
+    Given(:msg) { 'heho gimme something' }
+    Given(:set) { Cliprompt::Optionset.new() }
+    When { Cliprompt.stub(:shout).with(msg) }
+    When { Cliprompt.stub(:ask).with(question, set) }
+    Then { expect(Cliprompt).to receive(:shout).with(msg) }
+    And  { expect(Cliprompt).to receive(:ask).with(question, set) }
+    And { expect{ set.ask_again(question, msg)}.not_to raise_error }
+  end
 
 
 end
