@@ -8,7 +8,7 @@ module Cliprompt
   module_function
 
   MSG_MANDATORY_TEXT = "Sorry you need to fill that information."
-  MSG_YES_OR_NO = "You need to answer by yes, no, y or n."
+  MSG_YES_OR_NO = "You need to answer by yes, no, y, n, 1 or 0."
   MSG_CHOSE_IN_LIST = "You need to chose between the available options."
 
   def ask(question, *options)
@@ -21,6 +21,15 @@ module Cliprompt
     answer = input.gets.chomp
     output.flush
     opts.validate(question, answer)
+  end
+
+  def guess(env, question, *options)
+    opts = Optionset.new *options
+    if ENV[env]
+      opts.validate(question, ENV[env])
+    else
+      ask question, opts
+    end
   end
 
   def say(message)

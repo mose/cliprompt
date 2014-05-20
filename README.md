@@ -13,7 +13,7 @@ Features
 ----------
 
 - manages questions, choices, default values, yes/no values (done)
-- makes possible to have env vars set for defaults (todo)
+- makes possible to have env vars set for defaults (done)
 
 Usage
 ----------
@@ -33,6 +33,9 @@ class Myclass
     @url = ask "What is the url of Myclass?"
     @ssl = ask "Is it using SSL?", 'y/N'
     @age = ask "What is the age of the captain?", [22,33,=44,55]
+    # if you set set ENV['SOMEVAR'], it will override the answer and won't display the question
+    # in such case you still can use normal options and nev var will be validated against it (for boolean or choices setup)
+    @age = guess 'SOMEVAR', "What is the age of the captain?", [22,33,=44,55]
   end
 end
 ```

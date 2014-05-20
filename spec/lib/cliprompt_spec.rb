@@ -33,6 +33,24 @@ describe Cliprompt do
     end
   end
 
+  describe '.guess' do
+    Given(:question) { 'wazza?' }
+    Given(:env_var) { 'SOMEVAR' }
+    Given(:args) { }
+    context 'when env var is provided,' do
+      When(:env_value) { 'xxx' }
+      When { ENV[env_var] = env_value }
+      Then { expect(subject.guess(env_var, question, args)).to eq env_value }
+      And  { ENV.delete(env_var) }
+    end
+    context 'when env var is not provided,' do
+      When(:answer) { 'ooo' }
+      When { input.stub(:gets).and_return answer }
+      Then { expect(subject.guess(env_var, question, args)).to eq answer }
+      And  { expect(output.string).to eq "#{question}  " }
+    end
+  end
+
   describe '.say' do
     Given(:msg) { "hah" }
     When { subject.say msg }

@@ -4,6 +4,9 @@ Cliprompt Changelog
 v0.0.3 - wip
 -------------
 
+- relax the boolean check so 1 and 0 can be used for yes and no (especially for env vars)
+- added a `guess` method to have env var override question if set
+
 v0.0.2 - 2014-05-20
 -----------
 

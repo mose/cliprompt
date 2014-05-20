@@ -32,12 +32,28 @@ class Myclass
     show 'a list with default?', choices: ['22', 33, '=44', '55']
   end
 
+  def guessit
+    puts '-------------------'
+    showguess 'SOMEVAR', "what is your var?"
+    showguess 'SOMEVAR', "what is your var?", 42
+    showguess 'SOMEVAR', "what is your var?", boolean: true
+    showguess 'SOMEVAR', "what is your var?", [12, 'aa']
+  end
+
   def show(*args)
     it = ask *args
     puts "-- returned #{it.inspect}"
     puts
   end
+
+  def showguess(*args)
+    it = guess *args
+    puts "-- returned #{it.inspect}"
+    puts
+  end
+
 end
 
 m = Myclass.new
+m.guessit
 m.askit

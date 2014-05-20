@@ -56,7 +56,7 @@ module Cliprompt
     end
 
     def parse_string(arg)
-      if arg.downcase.match /^y(es)?(\/)?n(o)?/
+      if arg.match /^[yY1](es)?(\/)?[nN0](o)?/
         @boolean = true
         if /y(es)?(\/)?N/.match arg
           @default = false
@@ -99,9 +99,8 @@ module Cliprompt
     end
 
     def check_boolean(question, answer)
-      answer.downcase!
-      return ask_again(question, Cliprompt::MSG_YES_OR_NO) unless /^(y(es)?|n(o)?)$/.match(answer)
-      !/^y(es)?$/.match(answer).nil?
+      return ask_again(question, Cliprompt::MSG_YES_OR_NO) unless /^([yY1](es)?|[nN0](o)?)$/.match(answer)
+      !/^[yY1](es)?$/.match(answer).nil?
     end
 
     def check_choices(question, answer)
