@@ -14,9 +14,9 @@ describe Cliprompt::Optionset do
   end
 
   describe '.parse_array' do
-    Given(:options) { ['xxx', 'yyy', 'zzz'] }
 
     context "when there is no default (#{['xxx', 'yyy', 'zzz'].to_s})," do
+      Given(:options) { ['xxx', 'yyy', 'zzz'] }
       Given(:set) { Cliprompt::Optionset.new(options) }
       When(:choices) { set.choices }
       When(:default) { set.default }
@@ -27,6 +27,7 @@ describe Cliprompt::Optionset do
     end
 
     context "when there is a default specified (#{['xxx', '=yyy', 'zzz'].to_s})," do
+      Given(:options) { ['xxx', 'yyy', 'zzz'] }
       Given(:options_with_default) { ['xxx', '=yyy', 'zzz'] }
       Given(:set) { Cliprompt::Optionset.new(options_with_default) }
       When(:choices) { set.choices }
@@ -35,6 +36,17 @@ describe Cliprompt::Optionset do
       Then { expect(choices).to eq options }
       Then { expect(default).to eq 'yyy' }
       Then { expect(display).to eq '(xxx / yyy / zzz)[yyy]' }
+    end
+
+    context "when there is a mixed numeric and string choices (#{[22, 'yyy', 'zzz'].to_s})," do
+      Given(:options) { [22, 'yyy', 'zzz'] }
+      Given(:set) { Cliprompt::Optionset.new(options) }
+      When(:choices) { set.choices }
+      When(:default) { set.default }
+      When(:display) { set.display }
+      Then { expect(choices).to eq options.map(&:to_s) }
+      Then { expect(default).to be_false }
+      Then { expect(display).to eq '(22 / yyy / zzz)' }
     end
   end
 
@@ -95,6 +107,20 @@ describe Cliprompt::Optionset do
         Then { expect(display).to eq '[y/N]' }
       end
    end
+  end
+
+  describe '.parse_fixnum' do
+    Given(:options) { 42 }
+    Given(:set) { Cliprompt::Optionset.new(options) }
+    When(:default) { set.default }
+    Then { expect(default).to eq options.to_s }
+  end
+
+  describe '.parse_fixnum' do
+    Given(:options) { 3.14 }
+    Given(:set) { Cliprompt::Optionset.new(options) }
+    When(:default) { set.default }
+    Then { expect(default).to eq options.to_s }
   end
 
   describe '.parse_string' do

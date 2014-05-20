@@ -38,13 +38,21 @@ module Cliprompt
     end
 
     def parse_array(args)
-      @choices = args.map do |a|
+      @choices = args.map(&:to_s).map do |a|
         if a[0] && a[0] == '='
           @default = a[1..-1]
         else
           a
         end
       end
+    end
+
+    def parse_fixnum(arg)
+      @default = arg.to_s
+    end
+
+    def parse_float(arg)
+      @default = arg.to_s
     end
 
     def parse_string(arg)

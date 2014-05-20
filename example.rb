@@ -7,6 +7,11 @@ class Myclass
   end
 
   def askit
+    show 'a list without default?', [22, 33, 44, '55']
+    puts '-------------------'
+    puts 'numeric default'
+    show "what is your age?", 42
+    show "what is your size?", 6.2
     puts '-------------------'
     puts 'Free form'
     show "This simply ask for a simple form mandatory thing?"
@@ -22,7 +27,7 @@ class Myclass
     show 'a boolean?', boolean: true, default: false
     puts '-------------------'
     puts 'a list of choices'
-    show 'a list without default?', ['22', '33', '44', '55']
+    show 'a list without default?', [22, 33, 44, '55']
     show 'a list without default?', choices: ['22', '33', '44', '55'], default: '22'
     show 'a list with default?', ['22', '33', '=44', '55']
     show 'a list with default?', choices: ['22', '33', '=44', '55']
