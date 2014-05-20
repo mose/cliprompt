@@ -148,27 +148,46 @@ describe Cliprompt::Optionset do
   end
 
   describe '.validate' do
+    Given(:question) { 'so what?' }
     context 'when enter key is hit,' do
       Given(:input) { '' }
-      context 'when there is a default,' do
-        Given(:options) { { default: 'xxx' } }
-        Given(:set) { Cliprompt::Optionset.new(options) }
-        When(:question) { 'so what?' }
-        When(:response) { set.validate(question, input) }
-        Then { expect(response).to eq 'xxx' }
-      end
-      context 'when there is no default,' do
-        Given(:set) { Cliprompt::Optionset.new() }
-        Given { Cliprompt.stub(:shout).with(Cliprompt::MSG_MANDATORY_TEXT) }
-        Given { Cliprompt.stub(:ask).with(question, set) }
-        When(:question) { 'so what?' }
-        it {
-          expect(Cliprompt).to receive(:shout).with(Cliprompt::MSG_MANDATORY_TEXT)
-          expect(Cliprompt).to receive(:ask).with(question, set)
-          set.validate(question, input)
-        }
-      end
+      Given(:set) { Cliprompt::Optionset.new() }
+      When { set.stub(:check_default).with(question) }
+      Then { expect(set).to receive(:check_default).with(question) }
+      And  { expect{ set.validate(question, input) }.not_to raise_error }
+    end
+    context 'when it is a boolean,' do
+      Given(:input) { 'x' }
+      Given(:set) { Cliprompt::Optionset.new(boolean: true) }
+      When { set.stub(:check_boolean).with(question, input) }
+      Then { expect(set).to receive(:check_boolean).with(question, input) }
+      And  { expect{ set.validate(question, input) }.not_to raise_error }
+    end
+    context 'when it is a choice list,' do
+      Given(:input) { 'x' }
+      Given(:set) { Cliprompt::Optionset.new(choices: [1,2,3]) }
+      When { set.stub(:check_choices).with(question, input) }
+      Then { expect(set).to receive(:check_choices).with(question, input) }
+      And  { expect{ set.validate(question, input) }.not_to raise_error }
     end
   end
+
+  describe '.check_default' do
+    Given(:question) { 'so what?' }
+    Given(:msg) { Cliprompt::MSG_MANDATORY_TEXT }
+    context 'when there is no default set,' do
+      Given(:set) { Cliprompt::Optionset.new() }
+      When { set.stub(:ask_again).with(question, msg) }
+      Then { expect(set).to receive(:ask_again).with(question, msg) }
+      And  { expect{ set.check_default(question) }.not_to raise_error }
+     end
+    context 'when there is a default set,' do
+      Given(:default) { 'x' }
+      Given(:set) { Cliprompt::Optionset.new(default: default) }
+      When(:response) { set.check_default(question) }
+      Then { expect(response).to eq default }
+     end
+  end
+
 
 end
