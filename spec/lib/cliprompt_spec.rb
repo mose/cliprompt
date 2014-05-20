@@ -2,43 +2,47 @@
 
 require 'spec_helper'
 require 'cliprompt'
+require 'cliprompt/optionset'
 
 describe Cliprompt do
+  Given(:input) { StringIO.new }
+  Given(:output) { StringIO.new }
+  Given { subject.setio(input, output) }
 
   describe '.ask' do
-    Given(:input) { StringIO.new }
-    Given(:output) { StringIO.new }
-    Given { subject.setio(input, output) }
+    Given(:question) { 'wazza?' }
+    Given(:answer) { 'xxx' }
+    context 'without default,' do
+      When(:args) { }
+      When { input.stub(:gets).and_return answer }
+      Then { expect(subject.ask(question, args)).to eq answer }
+      And  { expect(output.string).to eq "#{question}  " }
+    end
+    context 'with a default,' do
+      When(:default) { 'ooo' }
+      When(:args) { { default: default } }
+      When { input.stub(:gets).and_return answer }
+      Then { expect(subject.ask(question, args)).to eq answer }
+      And  { expect(output.string).to eq "#{question} [#{default}] " }
+    end
+    context 'with an optionset,' do
+      When(:args) { Cliprompt::Optionset.new() }
+      When { input.stub(:gets).and_return answer }
+      Then { expect(subject.ask(question, args)).to eq answer }
+      And  { expect(output.string).to eq "#{question}  " }
+    end
+  end
 
-    # context 'when it is free form,' do
-    #   When(:question) { 'wazza?' }
-    #   context 'without default,' do
-    #     When(:args) { }
-    #     When { subject.input.stub(:gets).and_return("\n") }
-    #     When { subject.ask(question, args) }
-    #     Then { expect(output).to receive(:print).with("#{question}  ") }
-    #     context 'when enter key is used,' do
-    #       When(:answer) { subject.ask(question) }
-    #       When { input.gets("\n") }
-    #       Then { expect(output).to receive(:puts).with(Cliprompt::MSG_MANDATORY_TEXT)}
-    #     end
-    #   end
-    #   it 'is displayed ay the end of the question' do
-    #   end
-    # end
-    context 'when there is no preset choices,' do
-      it 'only displays the question' do
-      end
-    end
-    context 'when enter is typed,' do
-      it 'returns the default value' do
-      end
-    end
-    context 'when a value is provided' do
-      it 'returns the value' do
-      end
-    end
+  describe '.say' do
+    Given(:msg) { "hah" }
+    When { subject.say msg }
+    Then { expect(output.string).to eq "#{msg}\n" }
+  end
 
+  describe '.shout' do
+    Given(:msg) { "hah" }
+    When { subject.shout msg }
+    Then { expect(output.string).to eq "#{Paint[msg, :bold, :red ]}\n" }
   end
 
 end
