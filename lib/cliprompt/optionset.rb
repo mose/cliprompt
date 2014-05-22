@@ -68,6 +68,10 @@ module Cliprompt
       end
     end
 
+    def biglist?
+      @choices.count > 5
+    end
+
     def display
       back = ''
       if @boolean
@@ -87,7 +91,11 @@ module Cliprompt
       elsif @boolean
         check_boolean question, answer
       elsif @choices.count > 0
-        check_choices question, answer
+        if biglist?
+          check_biglist question, answer
+        else
+          check_choices question, answer
+        end
       else
         answer
       end
@@ -106,6 +114,11 @@ module Cliprompt
     def check_choices(question, answer)
       return ask_again(question, Cliprompt::MSG_CHOSE_IN_LIST) unless @choices.include?(answer)
       answer
+    end
+
+    def check_biglist(question, answer)
+      return ask_again(question, Cliprompt::MSG_CHOSE_IN_LIST) unless answer.to_i < @choices.count
+      @choices[answer.to_i]
     end
 
     def ask_again(question, msg)

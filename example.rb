@@ -40,6 +40,13 @@ class Myclass
     showguess 'SOMEVAR', "what is your var?", [12, 'aa']
   end
 
+  def biglist
+    puts '-------------------'
+    puts 'a long list of choices'
+    show 'a list with default?', [22, 33, 44, '=55', 66, 77, 'something else']
+    show 'a list without default?', [22, 33, 44, '55', 66, 77, 'something else']
+  end
+
   def show(*args)
     it = ask *args
     puts "-- returned #{it.inspect}"
@@ -55,5 +62,6 @@ class Myclass
 end
 
 m = Myclass.new
-m.guessit
-m.askit
+#m.guessit
+#m.askit
+m.biglist
