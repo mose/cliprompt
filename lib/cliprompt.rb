@@ -18,7 +18,7 @@ module Cliprompt
     else
       opts = Optionset.new *options
     end
-    if opts.biglist?
+    if opts.aslist
       output.puts "#{question}"
       opts.choices.each_with_index do |choice, i|
         if opts.default == choice

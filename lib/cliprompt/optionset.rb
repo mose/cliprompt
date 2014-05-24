@@ -5,13 +5,14 @@ module Cliprompt
 
   class Optionset
 
-    attr_reader :choices, :default, :boolean, :envdefault
+    attr_reader :choices, :default, :boolean, :envdefault, :aslist
 
     def initialize(options = nil)
       @choices = []
       @default = nil
       @boolean = false
       @envdefault = nil
+      @aslist = false
       @type = options.class.name.downcase
       meth = "parse_#{@type}".to_sym
       if respond_to? meth
@@ -32,6 +33,11 @@ module Cliprompt
       else
         @default ||= args[:default] || args['default']
       end
+      if args[:aslist] == false || args['aslist'] == false
+        @aslist = false
+      elsif args[:aslist] == true || args['aslist'] == true
+        @aslist = true
+      end
       @boolean = args[:boolean] || args['boolean']
       @default = true if (@boolean && @default.nil?)
       @envdefault = args[:env] || args['env']
@@ -45,6 +51,7 @@ module Cliprompt
           a
         end
       end
+      @aslist = (@choices.count > 5)
     end
 
     def parse_fixnum(arg)
@@ -68,10 +75,6 @@ module Cliprompt
       end
     end
 
-    def biglist?
-      @choices.count > 5
-    end
-
     def display
       back = ''
       if @boolean
@@ -91,8 +94,8 @@ module Cliprompt
       elsif @boolean
         check_boolean question, answer
       elsif @choices.count > 0
-        if biglist?
-          check_biglist question, answer
+        if @aslist
+          check_list question, answer
         else
           check_choices question, answer
         end
@@ -116,7 +119,7 @@ module Cliprompt
       answer
     end
 
-    def check_biglist(question, answer)
+    def check_list(question, answer)
       return ask_again(question, Cliprompt::MSG_CHOSE_IN_LIST) unless answer.to_i < @choices.count
       @choices[answer.to_i]
     end

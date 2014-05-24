@@ -45,6 +45,8 @@ class Myclass
     puts 'a long list of choices'
     show 'a list with default?', [22, 33, 44, '=55', 66, 77, 'something else']
     show 'a list without default?', [22, 33, 44, '55', 66, 77, 'something else']
+    show 'a big list of choices but not in list?', choices: [22, 33, 44, '=55', 66, 77, 'something else'], aslist: false
+    show 'a small list of choices but we want it in list?', choices: [22, 33, '=44'], aslist: true
   end
 
   def show(*args)

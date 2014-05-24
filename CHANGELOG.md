@@ -4,6 +4,7 @@ Cliprompt Changelog
 v0.0.4 - wip
 -------------
 
+- add an option `aslist` for we can decide if we want it as a list or not
 - add a way to display big list, when choices are more than 5, make a list out of them
 
 v0.0.3 - 2014-05-20
