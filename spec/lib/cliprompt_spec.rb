@@ -16,7 +16,7 @@ describe Cliprompt do
       When(:args) { }
       When { input.stub(:gets).and_return answer }
       Then { expect(subject.ask(question, args)).to eq answer }
-      And  { expect(output.string).to eq "#{question}  " }
+      And  { expect(output.string).to eq "#{question} " }
     end
     context 'with a default,' do
       When(:default) { 'ooo' }
@@ -29,7 +29,7 @@ describe Cliprompt do
       When(:args) { Cliprompt::Optionset.new() }
       When { input.stub(:gets).and_return answer }
       Then { expect(subject.ask(question, args)).to eq answer }
-      And  { expect(output.string).to eq "#{question}  " }
+      And  { expect(output.string).to eq "#{question} " }
     end
     context 'with choices requested as a list,' do
       When(:args) { { choices: ['aaa', 'bbb', 'ccc'], aslist: true } }
@@ -41,7 +41,7 @@ describe Cliprompt do
       When(:args) { { choices: ['=aaa', 'bbb', 'ccc'], aslist: true } }
       When { input.stub(:gets).and_return '' }
       Then { expect(subject.ask(question, args)).to eq 'aaa' }
-      And  { expect(output.string).to eq "#{question}\n> 0   aaa\n  1   bbb\n  2   ccc\n#{Cliprompt::MSG_CHOSE_A_NUMBER} " }
+      And  { expect(output.string).to eq "#{question}\n> 0   aaa\n  1   bbb\n  2   ccc\n#{Cliprompt::MSG_CHOSE_A_NUMBER} [0] " }
     end
     context 'with choices requested as a non-list despite there are many choices,' do
       When(:args) { { choices: %w(aaa bbb ccc ddd eee fff), aslist: false } }
@@ -71,7 +71,7 @@ describe Cliprompt do
       When(:answer) { 'ooo' }
       When { input.stub(:gets).and_return answer }
       Then { expect(subject.guess(env_var, question, args)).to eq answer }
-      And  { expect(output.string).to eq "#{question}  " }
+      And  { expect(output.string).to eq "#{question} " }
     end
   end
 

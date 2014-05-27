@@ -27,9 +27,9 @@ module Cliprompt
           output.printf "  %-3s %s\n", i, choice
         end
       end
-      output.print "#{MSG_CHOSE_A_NUMBER} "
+      output.print "#{MSG_CHOSE_A_NUMBER}#{opts.display} "
     else
-      output.print "#{question} #{opts.display} "
+      output.print "#{question}#{opts.display} "
     end
     answer = input.gets.chomp
     output.flush

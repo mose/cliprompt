@@ -78,12 +78,16 @@ module Cliprompt
     def display
       back = ''
       if @boolean
-        back = @default ? "[Y/n]" : "[y/N]"
+        back = @default ? " [Y/n]" : " [y/N]"
       else
-        if @choices.count > 0
-          back += "(#{@choices.join(' / ')})"
+        if @aslist
+          back += " [#{@choices.index(@default)}]" if @default
+        else
+          if @choices.count > 0
+            back += " (#{@choices.join(' / ')})"
+          end
+          back += " [#{@default}]" if @default
         end
-        back += "[#{@default}]" if @default
       end
       return back
     end

@@ -1,9 +1,10 @@
 Cliprompt Changelog
 =====================
 
-v0.0.5 - wip
+v0.0.5 - 2014-05-27
 --------------------
 
+- when choices are a list, show the default in the question, in more than in the list
 - clean some ruby warnings (running with --debug helps)
 
 v0.0.4 - 2014-05-24
