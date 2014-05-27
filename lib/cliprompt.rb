@@ -18,19 +18,7 @@ module Cliprompt
     else
       opts = Optionset.new(*options)
     end
-    if opts.aslist
-      output.puts "#{question}"
-      opts.choices.each_with_index do |choice, i|
-        if opts.default == choice
-          output.printf "> %-3s %s\n", i, choice
-        else
-          output.printf "  %-3s %s\n", i, choice
-        end
-      end
-      output.print "#{MSG_CHOSE_A_NUMBER}#{opts.display} "
-    else
-      output.print "#{question}#{opts.display} "
-    end
+    output.print "#{question} #{opts.display}"
     answer = input.gets.chomp
     output.flush
     opts.validate(question, answer)

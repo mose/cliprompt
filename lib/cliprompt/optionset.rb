@@ -76,20 +76,52 @@ module Cliprompt
     end
 
     def display
-      back = ''
       if @boolean
-        back = @default ? " [Y/n]" : " [y/N]"
-      else
+        display_boolean
+      elsif @choices.count > 0
         if @aslist
-          back += " [#{@choices.index(@default)}]" if @default
+          display_list
         else
-          if @choices.count > 0
-            back += " (#{@choices.join(' / ')})"
-          end
-          back += " [#{@default}]" if @default
+          display_choices
+        end
+      else
+        display_default
+      end
+    end
+
+    def display_boolean
+      @default ? "[Y/n] " : "[y/N] "
+    end
+
+    def display_list
+      back = "\n"
+      choices.each_with_index do |choice, i|
+        if @default == choice
+          back << sprintf("> %-3s %s\n", i, choice)
+        else
+          back << sprintf("  %-3s %s\n", i, choice)
         end
       end
+      back << "#{Cliprompt::MSG_CHOSE_A_NUMBER} "
+      back << display_default_index.to_s
       return back
+    end
+
+    def display_choices
+      back = ''
+      if @choices.count > 0
+        back << "(#{@choices.join(' / ')}) "
+      end
+      back << display_default.to_s
+      return back
+    end
+
+    def display_default
+      "[#{@default}] " if @default
+    end
+
+    def display_default_index
+      "[#{@choices.index(@default)}] " if @default
     end
 
     def validate(question, answer)
