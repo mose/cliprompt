@@ -64,6 +64,6 @@ class Myclass
 end
 
 m = Myclass.new
-#m.guessit
-#m.askit
+m.guessit
+m.askit
 m.biglist

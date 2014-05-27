@@ -4,6 +4,7 @@ Cliprompt Changelog
 v0.0.5 - 2014-05-27
 --------------------
 
+- fix to one space after question that was 2 spaces when no default is provided
 - when choices are a list, show the default in the question, in more than in the list
 - clean some ruby warnings (running with --debug helps)
 
