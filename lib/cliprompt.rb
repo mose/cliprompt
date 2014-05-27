@@ -16,7 +16,7 @@ module Cliprompt
     if options[0].class == Optionset
       opts = options[0]
     else
-      opts = Optionset.new *options
+      opts = Optionset.new(*options)
     end
     if opts.aslist
       output.puts "#{question}"
@@ -37,7 +37,7 @@ module Cliprompt
   end
 
   def guess(env, question, *options)
-    opts = Optionset.new *options
+    opts = Optionset.new(*options)
     if ENV[env]
       opts.validate(question, ENV[env])
     else

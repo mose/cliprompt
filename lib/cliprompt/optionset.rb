@@ -63,9 +63,9 @@ module Cliprompt
     end
 
     def parse_string(arg)
-      if arg.match /^[yY1](es)?(\/)?[nN0](o)?/
+      if /^[yY1](es)?(\/)?[nN0](o)?/.match(arg)
         @boolean = true
-        if /y(es)?(\/)?N/.match arg
+        if /y(es)?(\/)?N/.match(arg)
           @default = false
         else
           @default = true

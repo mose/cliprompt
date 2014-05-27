@@ -4,6 +4,8 @@ Cliprompt Changelog
 v0.0.5 - wip
 --------------------
 
+- clean some ruby warnings (running with --debug helps)
+
 v0.0.4 - 2014-05-24
 --------------------
 
