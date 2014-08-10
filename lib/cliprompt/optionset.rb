@@ -157,6 +157,7 @@ module Cliprompt
 
     def check_list(question, answer)
       return ask_again(question, Cliprompt::MSG_CHOSE_IN_LIST) unless answer.to_i < @choices.count
+      return ask_again(question, Cliprompt::MSG_INPUT_A_NUMBER) unless /[0-9]+/.match(answer)
       @choices[answer.to_i]
     end
 

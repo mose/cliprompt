@@ -10,6 +10,7 @@ module Cliprompt
   MSG_MANDATORY_TEXT = "Sorry you need to fill that information."
   MSG_YES_OR_NO = "You need to answer by yes, no, y, n, 1 or 0."
   MSG_CHOSE_IN_LIST = "You need to chose between the available options."
+  MSG_INPUT_A_NUMBER = "You need input a number."
   MSG_CHOSE_A_NUMBER = "Choose a number:"
 
   def ask(question, *options)

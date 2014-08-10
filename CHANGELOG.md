@@ -1,9 +1,10 @@
 Cliprompt Changelog
 =====================
 
-v0.0.6 - wip
+v0.0.6 - 2014-08-10
 --------------------
 
+- fix validation of list type to be a number
 
 v0.0.5 - 2014-05-27
 --------------------
