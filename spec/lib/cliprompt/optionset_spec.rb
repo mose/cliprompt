@@ -22,7 +22,7 @@ describe Cliprompt::Optionset do
       When(:default) { set.default }
       When(:display) { set.display }
       Then { expect(choices).to eq options }
-      Then { expect(default).to be_false }
+      Then { expect(default).to be_falsey }
       Then { expect(set.display).to eq '(xxx / yyy / zzz) ' }
     end
 
@@ -45,7 +45,7 @@ describe Cliprompt::Optionset do
       When(:default) { set.default }
       When(:display) { set.display }
       Then { expect(choices).to eq options.map(&:to_s) }
-      Then { expect(default).to be_false }
+      Then { expect(default).to be_falsey }
       Then { expect(display).to eq '(22 / yyy / zzz) ' }
     end
   end
@@ -82,8 +82,8 @@ describe Cliprompt::Optionset do
         When(:default) { set.default }
         When(:display) { set.display }
         When(:boolean) { set.boolean }
-        Then { expect(default).to be_true }
-        Then { expect(boolean).to be_true }
+        Then { expect(default).to be_truthy }
+        Then { expect(boolean).to be_truthy }
         Then { expect(display).to eq '[Y/n] ' }
       end
       context 'when default is given as true, default booean is Y,' do
@@ -92,8 +92,8 @@ describe Cliprompt::Optionset do
         When(:default) { set.default }
         When(:display) { set.display }
         When(:boolean) { set.boolean }
-        Then { expect(default).to be_true }
-        Then { expect(boolean).to be_true }
+        Then { expect(default).to be_truthy }
+        Then { expect(boolean).to be_truthy }
         Then { expect(display).to eq '[Y/n] ' }
       end
        context 'when default is given as false, default boolean is N,' do
@@ -102,8 +102,8 @@ describe Cliprompt::Optionset do
         When(:default) { set.default }
         When(:display) { set.display }
         When(:boolean) { set.boolean }
-        Then { expect(default).to be_false }
-        Then { expect(boolean).to be_true }
+        Then { expect(default).to be_falsey }
+        Then { expect(boolean).to be_truthy }
         Then { expect(display).to eq '[y/N] ' }
       end
    end
@@ -141,8 +141,8 @@ describe Cliprompt::Optionset do
         When(:default) { set.default }
         When(:display) { set.display }
         When(:boolean) { set.boolean }
-        Then { expect(default).to be_true }
-        Then { expect(boolean).to be_true }
+        Then { expect(default).to be_truthy }
+        Then { expect(boolean).to be_truthy }
         Then { expect(display).to eq '[Y/n] ' }
       end
       context 'when using yn,' do
@@ -150,7 +150,7 @@ describe Cliprompt::Optionset do
         Given(:set) { Cliprompt::Optionset.new(options) }
         When(:default) { set.default }
         When(:display) { set.display }
-        Then { expect(default).to be_true }
+        Then { expect(default).to be_truthy }
         Then { expect(display).to eq '[Y/n] ' }
       end
       context 'when using YN,' do
@@ -158,7 +158,7 @@ describe Cliprompt::Optionset do
         Given(:set) { Cliprompt::Optionset.new(options) }
         When(:default) { set.default }
         When(:display) { set.display }
-        Then { expect(default).to be_true }
+        Then { expect(default).to be_truthy }
         Then { expect(display).to eq '[Y/n] ' }
       end
       context 'when using yesNo,' do
@@ -166,7 +166,7 @@ describe Cliprompt::Optionset do
         Given(:set) { Cliprompt::Optionset.new(options) }
         When(:default) { set.default }
         When(:display) { set.display }
-        Then { expect(default).to be_false }
+        Then { expect(default).to be_falsey }
         Then { expect(display).to eq '[y/N] ' }
       end
       context 'when using yN,' do
@@ -174,7 +174,7 @@ describe Cliprompt::Optionset do
         Given(:set) { Cliprompt::Optionset.new(options) }
         When(:default) { set.default }
         When(:display) { set.display }
-        Then { expect(default).to be_false }
+        Then { expect(default).to be_falsey }
         Then { expect(display).to eq '[y/N] ' }
       end
       context 'when using y/N,' do
@@ -182,7 +182,7 @@ describe Cliprompt::Optionset do
         Given(:set) { Cliprompt::Optionset.new(options) }
         When(:default) { set.default }
         When(:display) { set.display }
-        Then { expect(default).to be_false }
+        Then { expect(default).to be_falsey }
         Then { expect(display).to eq '[y/N] ' }
       end
     end
@@ -249,19 +249,19 @@ describe Cliprompt::Optionset do
      end
     context 'when a no answer is given,' do
       When(:input) { 'no' }
-      Then { expect(set.check_boolean(question, input)).to be_false }
+      Then { expect(set.check_boolean(question, input)).to be_falsey }
     end
     context 'when a N answer is given,' do
       When(:input) { 'N' }
-      Then { expect(set.check_boolean(question, input)).to be_false }
+      Then { expect(set.check_boolean(question, input)).to be_falsey }
     end
     context 'when a yes answer is given,' do
       When(:input) { 'yes' }
-      Then { expect(set.check_boolean(question, input)).to be_true }
+      Then { expect(set.check_boolean(question, input)).to be_truthy }
     end
     context 'when a Y answer is given,' do
       When(:input) { 'Y' }
-      Then { expect(set.check_boolean(question, input)).to be_true }
+      Then { expect(set.check_boolean(question, input)).to be_truthy }
     end
   end
 
