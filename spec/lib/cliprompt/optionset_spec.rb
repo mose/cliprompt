@@ -194,21 +194,21 @@ describe Cliprompt::Optionset do
     context 'when enter key is hit,' do
       Given(:input) { '' }
       Given(:set) { Cliprompt::Optionset.new() }
-      When { set.stub(:check_default).with(question) }
+      When { allow(set).to receive(:check_default).with(question) }
       Then { expect(set).to receive(:check_default).with(question) }
       And  { expect{ set.validate(question, input) }.not_to raise_error }
     end
     context 'when it is a boolean,' do
       Given(:input) { 'x' }
       Given(:set) { Cliprompt::Optionset.new(boolean: true) }
-      When { set.stub(:check_boolean).with(question, input) }
+      When { allow(set).to receive(:check_boolean).with(question, input) }
       Then { expect(set).to receive(:check_boolean).with(question, input) }
       And  { expect{ set.validate(question, input) }.not_to raise_error }
     end
     context 'when it is a choice list,' do
       Given(:input) { 'x' }
       Given(:set) { Cliprompt::Optionset.new(choices: [1,2,3]) }
-      When { set.stub(:check_choices).with(question, input) }
+      When { allow(set).to receive(:check_choices).with(question, input) }
       Then { expect(set).to receive(:check_choices).with(question, input) }
       And  { expect{ set.validate(question, input) }.not_to raise_error }
     end
@@ -224,7 +224,7 @@ describe Cliprompt::Optionset do
     Given(:msg) { Cliprompt::MSG_MANDATORY_TEXT }
     context 'when there is no default set,' do
       Given(:set) { Cliprompt::Optionset.new() }
-      When { set.stub(:ask_again).with(question, msg) }
+      When { allow(set).to receive(:ask_again).with(question, msg) }
       Then { expect(set).to receive(:ask_again).with(question, msg) }
       And  { expect{ set.check_default(question) }.not_to raise_error }
      end
@@ -243,7 +243,7 @@ describe Cliprompt::Optionset do
     Given(:set) { Cliprompt::Optionset.new(boolean: true) }
     context 'when a non yes-no answer is given,' do
       When(:input) { 'xxx' }
-      When { set.stub(:ask_again).with(question, msg) }
+      When { allow(set).to receive(:ask_again).with(question, msg) }
       Then { expect(set).to receive(:ask_again).with(question, msg) }
       And  { expect{ set.check_boolean(question, input) }.not_to raise_error }
      end
@@ -272,7 +272,7 @@ describe Cliprompt::Optionset do
     Given(:set) { Cliprompt::Optionset.new(choices: choices) }
     context 'when answer is not in choices list,' do
       When(:input) { 'x' }
-      When { set.stub(:ask_again).with(question, msg) }
+      When { allow(set).to receive(:ask_again).with(question, msg) }
       Then { expect(set).to receive(:ask_again).with(question, msg) }
       And  { expect{ set.check_choices(question, input) }.not_to raise_error }
      end
@@ -287,8 +287,8 @@ describe Cliprompt::Optionset do
     Given(:question) { 'so what?' }
     Given(:msg) { 'heho gimme something' }
     Given(:set) { Cliprompt::Optionset.new() }
-    When { Cliprompt.stub(:shout).with(msg) }
-    When { Cliprompt.stub(:ask).with(question, set) }
+    When { allow(Cliprompt).to receive(:shout).with(msg) }
+    When { allow(Cliprompt).to receive(:ask).with(question, set) }
     Then { expect(Cliprompt).to receive(:shout).with(msg) }
     And  { expect(Cliprompt).to receive(:ask).with(question, set) }
     And  { expect{ set.ask_again(question, msg)}.not_to raise_error }
