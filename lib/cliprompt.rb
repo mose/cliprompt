@@ -13,6 +13,7 @@ module Cliprompt
   MSG_INPUT_A_NUMBER = "You need input a number."
   MSG_CHOSE_A_NUMBER = "Choose a number:"
 
+  # interactive setup of option
   def ask(question, *options)
     if options[0].class == Optionset
       opts = options[0]
@@ -25,6 +26,7 @@ module Cliprompt
     opts.validate(question, answer)
   end
 
+  # if environment var is set, use it, otherwise, ask for a value
   def guess(env, question, *options)
     opts = Optionset.new(*options)
     if ENV[env]
@@ -34,23 +36,30 @@ module Cliprompt
     end
   end
 
+  # output a message
+  # message - string to output
   def say(message)
     output.puts message
   end
 
+  # paints a message in bold and red and output it
+  # message - string to paint
   def shout(message)
     output.puts Paint[message, :bold, :red ]
   end
 
+  # makes possible to set input and output
   def setio(input, output)
     @@input = input
     @@output = output
   end
 
+  # defaults to STDIN
   def input
     @@input ||= STDIN
   end
 
+  # defaults to STDOUT
   def output
     @@output ||= STDOUT
   end
