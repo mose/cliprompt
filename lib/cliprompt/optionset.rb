@@ -22,6 +22,7 @@ module Cliprompt
       end
     end
 
+    # placeholder for nil type objects
     def parse_nilclass(args)
     end
 
