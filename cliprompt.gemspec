@@ -13,9 +13,19 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/mose/cliprompt"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^spec/})
+  spec.files         = %w(
+                        lib/cliprompt.rb
+                        lib/cliprompt/optionset.rb
+                        lib/cliprompt/version.rb
+                        README.md
+                        LICENSE
+                        )
+  spec.executables   = []
+  spec.test_files    = %w(
+                        spec/spec_helper.rb
+                        spec/lib/cliprompt_spec.rb
+                        spec/lib/cliprompt/optionset_spec.rb
+                        )
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'paint'

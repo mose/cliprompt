@@ -1,9 +1,10 @@
 Cliprompt Changelog
 =====================
 
-v0.1.1 - wip
+v0.1.1 - 2015-11-16
 -------------------
 - adjusted more for rspec3
+- better gemspec declaration
 
 v0.1.0 - 2014-05-10
 -------------------
