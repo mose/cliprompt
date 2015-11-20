@@ -17,6 +17,9 @@ Gem::Specification.new do |spec|
                         lib/cliprompt.rb
                         lib/cliprompt/optionset.rb
                         lib/cliprompt/version.rb
+                        spec/spec_helper.rb
+                        spec/lib/cliprompt_spec.rb
+                        spec/lib/cliprompt/optionset_spec.rb
                         README.md
                         LICENSE
                         )

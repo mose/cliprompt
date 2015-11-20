@@ -1,6 +1,10 @@
 Cliprompt Changelog
 =====================
 
+v0.1.2 - 2015-11-17
+-------------------
+- fixed buggy packaging
+
 v0.1.1 - 2015-11-16
 -------------------
 - adjusted more for rspec3
